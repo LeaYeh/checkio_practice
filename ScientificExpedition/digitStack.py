@@ -1,6 +1,17 @@
 import re
 
 def digit_stack(commands):
+  stack, res = [], 0
+  for command in commands:
+    if command.startswith("PUSH"):
+      stack.append(int(command.split()[1]))
+    elif stack:
+      res += stack[-1]
+      if command == "POP":
+        stack.pop()
+  return res
+""" [sol 1]
+def digit_stack(commands):
   #map(lambda x: re.match("", x), commands)
   stack = []
   res = 0
@@ -13,7 +24,7 @@ def digit_stack(commands):
     elif cmd[0] == "PEEK":
       res += stack[-1] if len(stack) else 0
   return res
-
+"""
 if __name__ == '__main__':
   #These "asserts" using only for self-checking and not necessary for auto-testing
   assert digit_stack(["PUSH 3", "POP", "POP", "PUSH 4", "PEEK",
